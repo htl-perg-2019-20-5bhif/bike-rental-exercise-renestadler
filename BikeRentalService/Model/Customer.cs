@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BikeRentalService.Validators;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BikeRentalService.Model
@@ -7,6 +8,8 @@ namespace BikeRentalService.Model
     {
         public int CustomerId { get; set; }
 
+        //Possible Values:
+        //Male, Female, Unknown
         [GenderValidator]
         public string Gender { get; set; }
 
@@ -22,7 +25,6 @@ namespace BikeRentalService.Model
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime BirthDay { get; set; }
-
 
         [Required]
         [StringLength(75)]

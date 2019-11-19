@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BikeRentalService.Model;
+using System.ComponentModel.DataAnnotations;
 
-namespace BikeRentalService.Model
+namespace BikeRentalService.Validators
 {
 
     class GenderValidator : ValidationAttribute
     {
+        //Validates if the given gender is valid
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var customer = (Customer)validationContext.ObjectInstance;

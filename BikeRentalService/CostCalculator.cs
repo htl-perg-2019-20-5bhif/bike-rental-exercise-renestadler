@@ -6,6 +6,9 @@ namespace BikeRentalService
 
     public class CostCalculator
     {
+        //Calculates the number of hours first
+        //Check if the time is smaller than 15 minutes --> 0
+        //Calculate price of first hour + price for additional hours -->  value
         public double CalculateTotalCost(Rental rent)
         {
             TimeSpan? timeDifference = (rent.RentalEnd - rent.RentalBegin);

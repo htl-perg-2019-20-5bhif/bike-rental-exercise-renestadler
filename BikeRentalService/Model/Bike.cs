@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BikeRentalService.Validators;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -37,6 +38,8 @@ namespace BikeRentalService.Model
         [Required]
         public double RentalPriceAdditionalHour { get; set; }
 
+        //Possible Values:
+        //Standard bike, Mountainbike, Trecking bike, Racing bike
         [BikeCategoryValidator]
         public string BikeCategory { get; set; }
     }

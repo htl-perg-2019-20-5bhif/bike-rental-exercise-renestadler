@@ -18,7 +18,8 @@ namespace BikeRentalService.Controllers
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/Customers/<filter>
+        // All Customers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers([FromQuery] string filter)
         {
@@ -29,7 +30,8 @@ namespace BikeRentalService.Controllers
             return await _context.Customers.Where(c => c.FirstName.Contains(filter)).ToListAsync();
         }
 
-        // GET: api/Customers/Rentals/5
+        // GET: api/Customers/Rentals/<id>
+        // All Rentals for one Customer
         [HttpGet("rentals/{id}")]
         public async Task<ActionResult<IEnumerable<Rental>>> GetRentals(int id)
         {
@@ -43,7 +45,8 @@ namespace BikeRentalService.Controllers
             return await _context.Rentals.Where(r => r.CustomerId == id).ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Customers/<id>
+        // One Customer
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
@@ -57,9 +60,8 @@ namespace BikeRentalService.Controllers
             return customer;
         }
 
-        // PUT: api/Customers/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // PUT: api/Customers/<id>
+        // Update Customer
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
@@ -90,8 +92,7 @@ namespace BikeRentalService.Controllers
         }
 
         // POST: api/Customers
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // Add new Customer
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
@@ -101,7 +102,8 @@ namespace BikeRentalService.Controllers
             return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/Customers/<id>
+        // Delete Customer Including all it's Rentals
         [HttpDelete("{id}")]
         public async Task<ActionResult<Customer>> DeleteCustomer(int id)
         {
@@ -118,6 +120,8 @@ namespace BikeRentalService.Controllers
             return customer;
         }
 
+
+        // Check if Customer Exists
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.CustomerId == id);

@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BikeRentalService.Model;
+using System.ComponentModel.DataAnnotations;
 
-namespace BikeRentalService.Model
+namespace BikeRentalService.Validators
 {
     public class RentalEndValidator : ValidationAttribute
     {
+        //Validates if the rentals end is valid
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var rental = (Rental)validationContext.ObjectInstance;

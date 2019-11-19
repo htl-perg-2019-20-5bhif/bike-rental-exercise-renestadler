@@ -19,7 +19,8 @@ namespace BikeRentalService.Controllers
             _context = context;
         }
 
-        // GET: api/Bikes
+        // GET: api/Bikes/<sortCriteria>
+        // All Bikes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bike>>> GetBikes([FromQuery] string sortCriteria)
         {
@@ -45,7 +46,8 @@ namespace BikeRentalService.Controllers
             }
         }
 
-        // GET: api/Bikes/5
+        // GET: api/Bikes/<id>
+        // Single Bike
         [HttpGet("{id}")]
         public async Task<ActionResult<Bike>> GetBike(int id)
         {
@@ -60,9 +62,8 @@ namespace BikeRentalService.Controllers
         }
 
 
-        // PUT: api/Bikes/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // PUT: api/Bikes/<id>
+        // Update Bike
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBike(int id, Bike bike)
         {
@@ -93,8 +94,7 @@ namespace BikeRentalService.Controllers
         }
 
         // POST: api/Bikes
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // Create Bike
         [HttpPost]
         public async Task<ActionResult<Bike>> PostBike(Bike bike)
         {
@@ -104,7 +104,8 @@ namespace BikeRentalService.Controllers
             return CreatedAtAction("GetBike", new { id = bike.BikeId }, bike);
         }
 
-        // DELETE: api/Bikes/5
+        // DELETE: api/Bikes/<id>
+        // Delete Bike
         [HttpDelete("{id}")]
         public async Task<ActionResult<Bike>> DeleteBike(int id)
         {
@@ -125,6 +126,7 @@ namespace BikeRentalService.Controllers
             return bike;
         }
 
+        // Check if Bike Exists
         private bool BikeExists(int id)
         {
             return _context.Bikes.Any(e => e.BikeId == id);

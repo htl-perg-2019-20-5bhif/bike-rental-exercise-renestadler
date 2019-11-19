@@ -1,10 +1,12 @@
-﻿using System;
+﻿using BikeRentalService.Model;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BikeRentalService.Model
+namespace BikeRentalService.Validators
 {
     public class IsPaidValidator : ValidationAttribute
     {
+        //Validates if you can already pay the rental
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var rental = (Rental)validationContext.ObjectInstance;

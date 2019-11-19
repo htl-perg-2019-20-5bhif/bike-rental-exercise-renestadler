@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BikeRentalService.Model;
+using System.ComponentModel.DataAnnotations;
 
-namespace BikeRentalService.Model
+namespace BikeRentalService.Validators
 {
 
     class BikeCategoryValidator : ValidationAttribute
     {
+        //Validates if the given category is valid
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var bike = (Bike)validationContext.ObjectInstance;

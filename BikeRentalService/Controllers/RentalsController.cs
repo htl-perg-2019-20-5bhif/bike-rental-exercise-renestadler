@@ -19,6 +19,8 @@ namespace BikeRentalService.Controllers
             _context = context;
         }
 
+        // POST: api/rentals/<customerId>&<bikeId>
+        // Start a rental for an existing customer without a running rental and a bike
         [HttpPost]
         [Route("start")]
         public async Task<ActionResult> StartRental([FromQuery] int customerId, [FromQuery] int bikeId)
@@ -61,6 +63,8 @@ namespace BikeRentalService.Controllers
             return StatusCode(200, rent);
         }
 
+        // PUT: api/rentals/end/<rentalId>
+        // End a rental and calculates it's costs
         [HttpPut]
         [Route("end/{rentalId}")]
         public async Task<ActionResult> EndRental(int rentalId)
@@ -87,7 +91,8 @@ namespace BikeRentalService.Controllers
             return StatusCode(200, rentToEnd);
         }
 
-        // Put: api/Rentals
+        // Put: api/rentals/pay/<rentalId>
+        // Sets a rental to paid
         [HttpPut]
         [Route("pay/{rentalId}")]
         public async Task<ActionResult> SetPaid(int rentalId)
@@ -109,16 +114,14 @@ namespace BikeRentalService.Controllers
             return StatusCode(200, "The rental has been paid.");
         }
 
-        /// <summary>
-        /// Returns a List of all unpaid rentals (where TotalCosts > 0 and the rental end has been set)
-        /// </summary>
-        /// <returns>List of all unpaid rentals</returns>
+        // Get: api/rentals/unpaid
+        // Get all unpaid rentals
         [HttpGet]
         [Route("unpaid")]
         public async Task<ActionResult<IEnumerable<Rental>>> GetUnpaid()
         {
-            return StatusCode(200, _context.Rentals.Where(r => !r.Paid && r.RentalEnd != DateTime.MinValue)
-                .Include(r => r.Customer).Include(r => r.Bike).ToList().SelectMany(rental =>
+            return StatusCode(200, (await _context.Rentals.Where(r => !r.Paid && r.RentalEnd != DateTime.MinValue)
+                .Include(r => r.Customer).Include(r => r.Bike).ToListAsync()).SelectMany(rental =>
                     new RentalDto[] {
                         new RentalDto{
                             CustomerId = rental.Customer.CustomerId,
@@ -132,7 +135,8 @@ namespace BikeRentalService.Controllers
                     }));
         }
 
-        // GET: api/Rentals
+        // GET: api/rentals
+        // Get all rentals
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rental>>> GetRentals()
         {
